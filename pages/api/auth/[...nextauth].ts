@@ -1,6 +1,7 @@
 import NextAuth from "next-auth/next";
 import Credentials from "next-auth/providers/credentials";
 import { compare } from 'bcrypt'
+import prismadb from '../../../lib/prismadb'
 
 export default NextAuth({
     providers: [
@@ -18,7 +19,7 @@ export default NextAuth({
                 }
             },
             async authorize(credentials){
-                if(credentials?.email || credentials?.password){
+                if(!credentials?.email || !credentials?.password){
                     throw new Error('Email and password required')
                 }
 
@@ -28,7 +29,7 @@ export default NextAuth({
                     }
                 });
 
-                if(!user || user.hashedPassword){
+                if(!user || !user.hashedPassword){
                     throw new Error('Email dose not exist')
                 }
 
@@ -54,6 +55,6 @@ export default NextAuth({
     }, 
     jwt :{
         secret: process.env.NEXTAUTH_JWT_SECRET
-    }
+    },
     secret: process.env.NEXTAUTH_SECRET
 })
