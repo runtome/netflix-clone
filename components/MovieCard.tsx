@@ -19,6 +19,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
 
 //   const redirectToWatch = useCallback(() => router.push(`/watch/${data.id}`), [router, data.id]);
 
+
   return (
     <div className="group bg-zinc-900 col-span relative h-[12vw]">
       <img src={data.thumbnailUrl} alt="Movie" draggable={false} className="
@@ -87,7 +88,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
             transition 
             hover:bg-neutral-300
             "
-            onClick={() => {}}
+            onClick={() => router.push(`/watch/${data?.id}`)}
             >
               <PlayIcon className="text-black w-4 lg:w-6" />
             
